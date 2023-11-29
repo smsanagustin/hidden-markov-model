@@ -1,0 +1,4 @@
+S1 given E1
+P(S1|E1) = P(E1|S1)P(S1) / P(E1)
+
+P(E1) = P(E1|S1)P(S1) + P(E|T)P(T1)
