@@ -157,19 +157,18 @@ FT = float(probabilities2[1])
 noOfCases = int(file1.readline().strip());
 
 # inputs
-input1 = file1.readline().strip()
-input2 = file1.readline().strip()
-input3 = file1.readline().strip()
+inputs = []
+for i in range(noOfCases):
+    inputs.append(file1.readline().strip())
 
 file1.close()
 
 # compute values of these probabilities
-state1 = input1.split(" ")[0]
-given1 = input1.split(" ")[2]
-state2 = input2.split(" ")[0]
-given2 = input2.split(" ")[2]
-state3 = input3.split(" ")[0]
-given3 = input3.split(" ")[2]
+states = []
+given = []
+for i in range(noOfCases):
+    states.append(inputs[i].split(" ")[0])
+    given.append(inputs[i].split(" ")[2])
 
 # save here the output
 output = {}
@@ -220,17 +219,22 @@ def inputSolver(sequence, count):
     SS = probabilityComputer(sequence, "S", "S")
 
     # get probabilities using bayes rule
-    firstProb = useBayesRule(state1, given1)
-    secondProb = useBayesRule(state2, given2)
-    thirdProb = useBayesRule(state3, given3)
-
-    # save probabilities
-    output[count].append(firstProb)
-    output[count].append(secondProb)
-    output[count].append(thirdProb)
+    for i in range(noOfCases):
+        result = useBayesRule(states[i], given[i])
+        
+        # save probability
+        output[count].append(result) 
     
 # solve for the inputs for a sequence using inputSolver
 for i in range(1, noOfStrings + 1):
     inputSolver(sequences[i-1], i)
-print(output[1])
-print(output[2])
+    
+# write output to file
+outputFile = open("hmm.out", "w")
+for i in range(noOfStrings):
+    outputFile.write(sequences[i] + "\n")
+    for j in range(noOfCases):
+        stringToWrite = inputs[j] + " = " + str(output[i+1][j]) + "\n"
+        outputFile.write(stringToWrite)
+
+outputFile.close()
