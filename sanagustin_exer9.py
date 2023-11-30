@@ -134,8 +134,9 @@ def getProbabilityOfInitialState(sequence):
 noOfStrings = int(file1.readline().strip())
 
 # get string sequences
-sequence1 = file1.readline().strip()
-sequence2 = file1.readline().strip()
+sequences = []
+for i in range(noOfStrings):
+    sequences.append(file1.readline().strip())
 
 # get possible values for each state
 possibleValues1 = file1.readline().strip().split(" ");
@@ -229,7 +230,7 @@ def inputSolver(sequence, count):
     output[count].append(thirdProb)
     
 # solve for the inputs for a sequence using inputSolver
-inputSolver(sequence1, 1)
-inputSolver(sequence2, 2)
+for i in range(1, noOfStrings + 1):
+    inputSolver(sequences[i-1], i)
 print(output[1])
 print(output[2])
