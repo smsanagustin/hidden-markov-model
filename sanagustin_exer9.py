@@ -10,7 +10,7 @@ ST = 0
 TT = 0
 SS = 0
 
-# computes for the total probability of a state using total probability formula
+# computes for the total probability of a state using 
 def getTotalProbability(state):
     # get count
     stateCount = int(state[1])
